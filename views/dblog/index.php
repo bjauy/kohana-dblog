@@ -37,7 +37,7 @@
 				<?php echo Text::limit_chars($log->message, 40, ' …', TRUE); ?>
 			</td>
 			<td>
-				<a href="<?php echo URL::site(Request::instance()->uri()).'/'.URL::query(array('log_id' => $log->pk())); ?>">
+				<a href="<?php echo Request::detect_uri()/*URL::site(Request::instance()->uri()).'/'*/.URL::query(array('log_id' => $log->pk())); ?>">
 					<?php echo __('Details'); ?>
 				</a>
 			</td>

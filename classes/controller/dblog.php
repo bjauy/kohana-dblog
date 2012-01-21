@@ -12,7 +12,7 @@ class Controller_DBlog extends Controller
 		parent::before();
 		if (isset($_GET['log_id']))
 		{
-			$this->request->action = 'show';
+			$this->request->action('show');
 		}
 	}
 
@@ -41,7 +41,7 @@ class Controller_DBlog extends Controller
 			->bind('filter_values', $filters)
 			->set('filters', Arr::get($_GET, 'log-filter', array()))
 			->bind('pagination', $pagination);
-		$this->request->response = $view;
+		$this->response->body( $view);
 	}
 
 	protected function get_filters() {
@@ -63,13 +63,14 @@ class Controller_DBlog extends Controller
 
 	public function action_show()
 	{
-		$this->request->response = View::factory('dblog/show')
-			->set('log', ORM::factory('log', (int) $_GET['log_id']));
+		$this->response->body( View::factory('dblog/show')
+			->set('log', ORM::factory('log', (int) $_GET['log_id']))
+		);
 	}
 
 	protected function deny_direct_access()
 	{
-		if ($this->request === Request::$instance)
+		if ($this->request === Request::initial())
 		{
 			throw new DBlog_Exception('No direct access allowed');
 		}

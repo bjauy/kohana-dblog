@@ -23,7 +23,7 @@ Create a database table, based on default.sql. Additional fields can be added.
 
 If you want to store all Kohana::$log messages in the database too:
 
-In `bootstrap.php` change
+In `bootstrap.php` change (or add)
 
 	Kohana::$log->attach(new Kohana_Log_File(APPPATH.'logs'));
 
@@ -44,6 +44,12 @@ to
 		'url' => getenv('REQUEST_URI'),
 	));
 
+## Using Log::instance() for writing messages
+
+	Log::instance()->add(Log::NOTICE, 'My Logged Message Here');
+
+Module will try to find corresponding message level and save it as type (in the example above, `Log::NOTICE` will be translated to `'NOTICE'`).
+
 ## Configuration (optional)
 
 -	Copy `modules/dblog/config/dblog.php` to `application/config/`
@@ -55,7 +61,7 @@ The controller should not be accessed directly. You can embed it in your control
 
 Example with [`Controller_Demo`](http://kerkness.ca/wiki/doku.php?id=template-site:extending_the_template_controller):
 
-	$this->template->content = Request::factory('dblog/index')->execute()->response;
+	$this->template->content = Request::factory('dblog/index')->execute();
 
 ## Ignoring certain log types
 
