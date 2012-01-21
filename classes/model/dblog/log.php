@@ -41,10 +41,10 @@ class Model_DBlog_Log extends ORM
 		return $val;
 	}
 
-	public function save()
+	public function save(Validation $validation = NULL)
 	{
 		$this->tstamp = time();
-		return parent::save();
+		return parent::save($validation);
 	}
 
 	public function apply_filters($filter_src)
