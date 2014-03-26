@@ -29,7 +29,7 @@ abstract class DBlog_Core
 			if (FALSE === in_array($type, self::$omit_types))
 			{
 				$type = strtoupper($type);
-				$log = ORM::factory('log');
+				$log = ORM::factory('Log');
 				$log->type = $type;
 				$log->message = strtr($message, $subst);
 				$log->details = strtr($details, $subst);
